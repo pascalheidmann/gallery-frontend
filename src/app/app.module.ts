@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { ListComponent } from './presentation/page/list/list.component';
 
 @NgModule({
     declarations: [
