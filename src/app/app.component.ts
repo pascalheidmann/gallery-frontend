@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {trigger} from "@angular/animations";
 
 @Component({
     selector: 'app-root',
@@ -8,4 +9,5 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 })
 export class AppComponent {
     title = 'gallery-frontend';
+    public overlayIsOpen: any;
 }

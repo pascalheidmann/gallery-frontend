@@ -6,11 +6,14 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {MatToolbarModule} from "@angular/material/toolbar";
-import { ListComponent } from './presentation/page/list/list.component';
+import {DetailComponent} from './presentation/page/detail/detail/detail.component';
+import {CdkConnectedOverlay} from "@angular/cdk/overlay";
+import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER} from "@angular/material/select";
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        DetailComponent
     ],
     imports: [
         BrowserModule,
@@ -22,9 +25,10 @@ import { ListComponent } from './presentation/page/list/list.component';
             // Register the ServiceWorker as soon as the application is stable
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
-        })
+        }),
+        CdkConnectedOverlay
     ],
-    providers: [],
+    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER],
     bootstrap: [AppComponent]
 })
 export class AppModule {

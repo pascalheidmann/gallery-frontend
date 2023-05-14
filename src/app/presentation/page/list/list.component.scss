@@ -1,61 +1,46 @@
-ul {
-    display: flex;
-    flex-wrap: wrap;
+:host {
+    margin: auto;
+    width: 100%;
+    max-width: 70rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: .5rem;
-    list-style: none;
     isolation: isolate;
+    padding: .5rem 0;
+
+    @media (min-width: 30rem) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 45rem) {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
-li {
-    max-height: 30vh;
-    max-width: 40vh;
-    flex-grow: 1;
+div {
+    z-index: 1;
+    cursor: pointer;
 }
 
-picture > *:hover {
-    transition: all 300ms;
-    transform: scale(1.05);
-    z-index: 2;
-    box-shadow: 0 0 .5rem 0 rgba(22, 22, 22, .4);
-}
-
-picture {
-    max-height: 100%;
-    min-width: 100%;
-    object-fit: cover;
-    vertical-align: bottom;
+div.expanded {
+    z-index: 3;
 }
 
 source, img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    object-fit: cover;
+
+    vertical-align: bottom;
     max-width: 100%;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+        transition: transform 300ms, box-shadow 300ms, z-index .2s 300s;
+        transform: scale(1.05);
+        z-index: 2;
+        box-shadow: 0 0 .5rem 0 rgba(22, 22, 22, .4);
+    }
 }
 
-li:last-child {
-    flex-grow: 10;
-}
-@media (max-aspect-ratio: 1/1) {
-    li {
-        height: 30vh;
-    }
-}
-@media (max-height: 480px) {
-    li {
-        height: 80vh;
-    }
-}
-@media (max-aspect-ratio: 1/1) and (max-width: 480px) {
-    ul {
-        flex-direction: row;
-    }
-
-    li {
-        height: auto;
-        width: 100%;
-    }
-
-    img {
-        width: 100%;
-        max-height: 75vh;
-        min-width: 0;
-    }
-}

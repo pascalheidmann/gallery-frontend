@@ -1,9 +1,8 @@
-<ul *ngIf="userDataServiceService.isLoggedIn$ | async">
-    <li *ngFor="let image of (galleryDataService.documents$ | async)">
+<ng-container *ngIf="userDataServiceService.isLoggedIn$ | async">
+    <a *ngFor="let image of (galleryDataService.documents$ | async)" [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
         <picture>
             <source *ngFor="let preview of image.previews" media="(min-width: 10px)" [srcset]="preview.path" [type]="preview.mime" loading="lazy" />
             <img [src]="image.previews[0].path" loading="lazy" />
         </picture>
-    </li>
-    <li></li>
-</ul>
+    </a>
+</ng-container>
