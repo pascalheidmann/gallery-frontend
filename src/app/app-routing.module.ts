@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ListComponent} from "./presentation/page/list/list.component";
-import {DetailComponent} from "./presentation/page/detail/detail/detail.component";
+import {DetailOutletComponent} from "./presentation/page/detail/detail-outlet/detail-outlet.component";
 
 const routes: Routes = [
     {
         title: 'Image',
         path: 'details/:id',
-        component: DetailComponent,
+        component: DetailOutletComponent,
         outlet: 'overlay'
     },
     {

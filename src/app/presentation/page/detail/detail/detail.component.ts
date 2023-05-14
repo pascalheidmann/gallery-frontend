@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {of} from "rxjs";
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Uuid} from "../../../../infrastructure/uid/uuid";
 
 @Component({
@@ -8,12 +6,9 @@ import {Uuid} from "../../../../infrastructure/uid/uuid";
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
 })
 export class DetailComponent {
-    public documentId$ = of(this.route.snapshot.paramMap.get('id') as Uuid);
-
-    constructor(
-        private readonly route: ActivatedRoute,
-    ) {
-    }
+    @Input()
+    public documentId: Uuid | null = null;
 }
