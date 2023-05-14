@@ -3,8 +3,9 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {UserDataService} from "../../../business-domain/user/user-data.service";
 import {GalleryDataService} from "../../../business-domain/gallery/gallery-data.service";
 import {CdkVirtualForOf} from "@angular/cdk/scrolling";
-import {Document} from "../../../data-domain/gallery/models/gallery";
 import {Router, RouterLink} from "@angular/router";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
     selector: 'app-list',
@@ -17,6 +18,8 @@ import {Router, RouterLink} from "@angular/router";
         NgOptimizedImage,
         CdkVirtualForOf,
         RouterLink,
+        MatIconModule,
+        MatButtonModule,
     ]
 })
 export class ListComponent {
@@ -25,5 +28,9 @@ export class ListComponent {
         public readonly galleryDataService: GalleryDataService,
         public readonly router: Router,
     ) {
+    }
+
+    public showUpload(): void {
+        this.router.navigate(['', {relativeUrl: true, outlets: {overlay: ['upload']}}]);
     }
 }

@@ -1,8 +1,20 @@
-<ng-container *ngIf="userDataServiceService.isLoggedIn$ | async">
-    <a *ngFor="let image of (galleryDataService.documents$ | async)" [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
+<div *ngIf="userDataServiceService.isLoggedIn$ | async" class="gallery">
+    <a *ngFor="let image of (galleryDataService.documents$ | async)"
+       [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
         <picture>
-            <source *ngFor="let preview of image.previews" media="(min-width: 10px)" [srcset]="preview.path" [type]="preview.mime" loading="lazy" />
-            <img [src]="image.previews[0].path" loading="lazy" />
+            <source *ngFor="let preview of image.previews" media="(min-width: 10px)" [srcset]="preview.path"
+                    [type]="preview.mime" loading="lazy"/>
+            <img [src]="image.previews[0].path" loading="lazy"/>
         </picture>
     </a>
-</ng-container>
+</div>
+
+<div class="bottom-bar">
+    <button mat-fab color="primary" title="Filter">
+        <mat-icon>filter_list</mat-icon>
+    </button>
+    <button mat-fab extended (click)="showUpload()">
+        <mat-icon>upload</mat-icon>
+        Upload
+    </button>
+</div>

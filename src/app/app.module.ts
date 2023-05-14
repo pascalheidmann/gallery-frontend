@@ -6,10 +6,8 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {DetailOutletComponent} from './presentation/page/detail/detail-outlet/detail-outlet.component';
 import {CdkConnectedOverlay} from "@angular/cdk/overlay";
 import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER} from "@angular/material/select";
-import { DetailComponent } from './presentation/page/detail/detail/detail.component';
 
 @NgModule({
     declarations: [

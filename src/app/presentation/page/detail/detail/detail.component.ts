@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Uuid} from "../../../../infrastructure/uid/uuid";
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {DIALOG_DATA} from "@angular/cdk/dialog";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-detail',
@@ -7,8 +9,13 @@ import {Uuid} from "../../../../infrastructure/uid/uuid";
     styleUrls: ['./detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
+    imports: [
+        CommonModule,
+    ],
 })
 export class DetailComponent {
-    @Input()
-    public documentId: Uuid | null = null;
+    constructor(
+        @Inject(DIALOG_DATA) public data: { documentId$: Observable<string> },
+    ) {
+    }
 }
