@@ -8,6 +8,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {CdkConnectedOverlay} from "@angular/cdk/overlay";
 import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER} from "@angular/material/select";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -17,7 +18,7 @@ import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER} from "@angular/material/select";
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatToolbarModule,
+        HttpClientModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: !isDevMode(),
             // Register the ServiceWorker as soon as the application is stable

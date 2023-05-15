@@ -4,7 +4,7 @@
         <picture>
             <source *ngFor="let preview of image.previews" media="(min-width: 10px)" [srcset]="preview.path"
                     [type]="preview.mime" loading="lazy"/>
-            <img [src]="image.previews[0].path" loading="lazy"/>
+            <img [src]="image.previews[0]?.path" loading="lazy"/>
         </picture>
     </a>
 </div>

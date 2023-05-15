@@ -7,12 +7,24 @@
     #fileUpload
 >
 <div class="previews">
-    <img [src]="preview" *ngFor="let preview of previews$ | async" />
+    <img [src]="preview" *ngFor="let preview of previews$ | async"/>
 </div>
 
 <div class="file-upload">
-    <button mat-mini-fab color="primary" class="upload-btn"
-            (click)="fileUpload.click()">
+    <button
+        mat-mini-fab
+        color="primary"
+        class="upload-select-btn"
+        (click)="fileUpload.click()"
+    >
         <mat-icon>attach_file</mat-icon>
+    </button>
+    <button
+        mat-mini-fab
+        color="primary"
+        class="upload"
+        (click)="uploadAll()"
+    >
+        Upload
     </button>
 </div>
