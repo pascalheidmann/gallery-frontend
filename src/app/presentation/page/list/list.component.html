@@ -2,9 +2,14 @@
     <a *ngFor="let image of (galleryDataService.documents$ | async)"
        [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
         <picture>
-            <source *ngFor="let preview of image.previews" media="(min-width: 10px)" [srcset]="preview.path"
-                    [type]="preview.mime" loading="lazy"/>
-            <img [src]="image.previews[0]?.path" loading="lazy"/>
+            <source
+                *ngFor="let preview of image.previews"
+                media="(min-width: 10px)"
+                [srcset]="'/api/document-preview/' + preview.id"
+                [type]="preview.mime"
+                loading="lazy"
+            />
+            <img [src]="image.previews[0]?.path ?? '/api/document-preview/' + image.id" loading="lazy"/>
         </picture>
     </a>
 </div>

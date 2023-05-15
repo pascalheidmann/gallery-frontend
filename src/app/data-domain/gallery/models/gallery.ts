@@ -1,6 +1,7 @@
 import {Uuid} from "../../../infrastructure/uid/uuid";
 
 interface DocumentPreview {
+    id?: Uuid;
     height: number;
     width: number;
     mime: string;
