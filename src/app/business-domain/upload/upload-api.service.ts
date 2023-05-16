@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {FileUpload} from "../../data-domain/upload/models/upload";
+import {GalleryDataService} from "../gallery/gallery-data.service";
+import {tap} from "rxjs";
 
 const uploadUrl = '/api/album/01GZA1QY5ZGB5EW7BC528F06JH/upload';
 
@@ -9,19 +9,17 @@ const uploadUrl = '/api/album/01GZA1QY5ZGB5EW7BC528F06JH/upload';
     providedIn: 'root',
 })
 export class UploadApiService {
-    constructor(private readonly httpClient: HttpClient) {
+    constructor(
+        private readonly httpClient: HttpClient,
+        private readonly galleryDataService: GalleryDataService
+        ) {
     }
 
     public upload(file: File): void {//Observable<FileUpload> {
         let formData = new FormData();
         formData.append('file', file, file.name);
-        let request = this.httpClient.post(uploadUrl, formData).subscribe(() => console.log);
-/*
-        return new Observable<FileUpload>({
-            response: request,
-            fileName: file.name,
-            percent: 0,
-            file: file,
-        });*/
+        let request = this.httpClient.post(uploadUrl, formData)
+            .pipe(tap(console.log))
+            .subscribe(() => this.galleryDataService.refresh());
     }
 }

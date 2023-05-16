@@ -1,30 +1,53 @@
-<input
-    type="file"
-    accept="image/*"
-    class="file-input"
-    (change)="onFileSelected({event : $event})"
-    multiple
-    #fileUpload
->
-<div class="previews">
-    <img [src]="preview" *ngFor="let preview of previews$ | async"/>
-</div>
+<mat-card>
+    <mat-card-content>
+        <input
+            type="file"
+            accept="image/*, video/*"
+            class="file-input"
+            (change)="onFileSelected({event : $event})"
+            multiple
+            #fileUpload
+        >
+        <div class="previews" *ngIf="previews$ | async as previews; else noFilesSelected">
+            <div *ngFor="let preview of previews; let index = index" class="preview">
+                <button
+                    mat-mini-fab
+                    color="accent"
+                    (click)="removeFile(index)"
+                >
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <img [src]="preview.previewImage" *ngIf="preview.isImage" />
+                <video *ngIf="preview.isVideo" controls>
+                    <source [src]="preview.previewImage" [type]="preview.file.type">
+                </video>
+                <p>{{ preview.file.name }}</p>
+            </div>
+        </div>
+        <ng-template #noFilesSelected>
+            Fotos und Videos für Upload jetzt auswählen
+        </ng-template>
+    </mat-card-content>
 
-<div class="file-upload">
-    <button
-        mat-mini-fab
-        color="primary"
-        class="upload-select-btn"
-        (click)="fileUpload.click()"
-    >
-        <mat-icon>attach_file</mat-icon>
-    </button>
-    <button
-        mat-mini-fab
-        color="primary"
-        class="upload"
-        (click)="uploadAll()"
-    >
-        Upload
-    </button>
-</div>
+    <mat-card-actions>
+        <button
+            mat-raised-button
+            color="primary"
+            class="upload-select-btn"
+            (click)="fileUpload.click()"
+        >
+            <mat-icon>attach_file</mat-icon>
+            Dateien auswählen
+        </button>
+        <button
+            mat-raised-button
+            [color]="(files$ | async)?.length === 0 ? 'accent' : 'primary'"
+            [disabled]="(files$ | async)?.length === 0"
+            class="upload"
+            (click)="uploadAll()"
+        >
+            <mat-icon>rocket</mat-icon>
+            Upload
+        </button>
+    </mat-card-actions>
+</mat-card>

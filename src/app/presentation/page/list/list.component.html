@@ -1,17 +1,22 @@
 <div *ngIf="userDataServiceService.isLoggedIn$ | async" class="gallery">
-    <a *ngFor="let image of (galleryDataService.documents$ | async)"
-       [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
-        <picture>
-            <source
-                *ngFor="let preview of image.previews"
-                media="(min-width: 10px)"
-                [srcset]="'/api/document-preview/' + preview.id"
-                [type]="preview.mime"
-                loading="lazy"
-            />
-            <img [src]="image.previews[0]?.path ?? '/api/document-preview/' + image.id" loading="lazy"/>
-        </picture>
-    </a>
+    <ng-container *ngIf="(galleryDataService.documents$ | async) as documents; else loading">
+        <a *ngFor="let image of documents; trackBy: getDocumentId"
+           [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
+            <picture>
+                <source
+                    *ngFor="let preview of image.previews"
+                    media="(min-width: 10px)"
+                    [srcset]="'/api/document-preview/' + preview.id"
+                    [type]="preview.mime"
+                    loading="lazy"
+                />
+                <img [src]="image.previews[0]?.path ?? '/api/document-preview/' + image.id" loading="lazy"/>
+            </picture>
+        </a>
+    </ng-container>
+    <ng-template #loading>
+        <mat-icon>loading</mat-icon>
+    </ng-template>
 </div>
 
 <div class="bottom-bar">

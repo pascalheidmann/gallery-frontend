@@ -6,6 +6,8 @@ import {CdkVirtualForOf} from "@angular/cdk/scrolling";
 import {Router, RouterLink} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {Document, DocumentPreview} from "../../../data-domain/gallery/models/gallery";
+import {Uuid} from "../../../infrastructure/uid/uuid";
 
 @Component({
     selector: 'app-list',
@@ -32,5 +34,13 @@ export class ListComponent {
 
     public showUpload(): void {
         this.router.navigate(['', {relativeUrl: true, outlets: {overlay: ['upload']}}]);
+    }
+
+    public getPreviewId(index: number, preview: DocumentPreview): Uuid {
+        return preview.id;
+    };
+
+    public getDocumentId(index: number, document: Document): Uuid {
+        return document.id;
     }
 }
