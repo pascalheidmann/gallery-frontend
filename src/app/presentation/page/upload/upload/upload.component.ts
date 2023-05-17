@@ -1,12 +1,17 @@
-import {ChangeDetectionStrategy, Component, HostBinding, HostListener} from '@angular/core';
-import {CommonModule, Location} from "@angular/common";
-import {DialogModule} from "@angular/cdk/dialog";
-import {HttpClientModule} from "@angular/common/http";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {map, Observable, Subject} from "rxjs";
-import {UploadApiService} from "../../../../business-domain/upload/upload-api.service";
-import {MatCardModule} from "@angular/material/card";
+import { DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { CommonModule, Location } from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    HostBinding,
+    HostListener
+} from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { map, Observable, Subject } from 'rxjs';
+import { albumId } from '../../../../business-domain/album-id';
+import { UploadApiService } from '../../../../business-domain/upload/upload-api.service';
 
 interface UploadPreview {
     file: File;
@@ -21,11 +26,17 @@ interface UploadPreview {
     styleUrls: ['./upload.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [CommonModule, DialogModule, MatIconModule, MatButtonModule, HttpClientModule, MatCardModule]
+    imports: [
+        CommonModule,
+        DialogModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule
+    ]
 })
 export class UploadComponent {
     private files = [];
-    public files$: Subject<File[]> = new Subject<File[]>();
+    public readonly files$: Subject<File[]> = new Subject<File[]>();
 
     public previews$: Observable<UploadPreview[]> = this.files$.pipe(
         map((files: File[]) =>
@@ -44,6 +55,7 @@ export class UploadComponent {
     public dragOver: boolean = false;
 
     constructor(
+        public readonly dialogRef: DialogRef<UploadComponent>,
         private readonly uploadApiService: UploadApiService,
         private readonly location: Location,
     ) {
@@ -66,9 +78,9 @@ export class UploadComponent {
 
     public uploadAll(): void {
         this.files.forEach((file: File) => {
-            this.uploadApiService.upload(file);
+            this.uploadApiService.upload(file, albumId);
         });
-        this.location.back();
+        this.dialogRef.close();
     }
 
     public removeFile(index: number): void {
@@ -101,5 +113,11 @@ export class UploadComponent {
         if (files?.length > 0) {
             this.addFiles(Array.from(files));
         }
+    }
+
+    public closeOverlay() {
+        this.files = [];
+        this.files$.next([]);
+        this.dialogRef.close();
     }
 }

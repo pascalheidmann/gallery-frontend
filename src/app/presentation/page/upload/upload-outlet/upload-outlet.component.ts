@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Dialog, DialogModule, DialogRef} from "@angular/cdk/dialog";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import {CommonModule, Location} from "@angular/common";
 import {DetailComponent} from "../../detail/detail/detail.component";
 import {UploadComponent} from "../upload/upload.component";
@@ -17,6 +17,7 @@ export class UploadOutletComponent implements OnInit {
     constructor(
         private readonly dialog: Dialog,
         private readonly route: ActivatedRoute,
+        private readonly router: Router,
         private readonly location: Location
     ) {
     }
@@ -32,6 +33,6 @@ export class UploadOutletComponent implements OnInit {
             data: {}
         });
 
-        dialogRef.closed.subscribe(() => this.location.back());
+        dialogRef.closed.subscribe(() => this.router.navigated && this.location.back());
     }
 }

@@ -8,22 +8,24 @@
             multiple
             #fileUpload
         >
-        <div class="previews" *ngIf="previews$ | async as previews; else noFilesSelected">
-            <div *ngFor="let preview of previews; let index = index" class="preview">
-                <button
-                    mat-mini-fab
-                    color="accent"
-                    (click)="removeFile(index)"
-                >
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <img [src]="preview.previewImage" *ngIf="preview.isImage" />
-                <video *ngIf="preview.isVideo" controls>
-                    <source [src]="preview.previewImage" [type]="preview.file.type">
-                </video>
-                <p>{{ preview.file.name }}</p>
+        <ng-container *ngIf="previews$ | async as previews; else noFilesSelected">
+            <div class="previews" *ngIf="previews.length > 0; else noFilesSelected">
+                <div *ngFor="let preview of previews; let index = index" class="preview">
+                    <button
+                        mat-mini-fab
+                        color="accent"
+                        (click)="removeFile(index)"
+                    >
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <img [src]="preview.previewImage" *ngIf="preview.isImage"/>
+                    <video *ngIf="preview.isVideo" controls>
+                        <source [src]="preview.previewImage" [type]="preview.file.type">
+                    </video>
+                    <p>{{ preview.file.name }}</p>
+                </div>
             </div>
-        </div>
+        </ng-container>
         <ng-template #noFilesSelected>
             Fotos und Videos für Upload jetzt auswählen
         </ng-template>
@@ -41,8 +43,8 @@
         </button>
         <button
             mat-raised-button
-            [color]="(files$ | async)?.length === 0 ? 'accent' : 'primary'"
-            [disabled]="(files$ | async)?.length === 0"
+            [color]="(files$ | async)?.length ? 'accent' : 'primary'"
+            [disabled]="!((files$ | async)?.length)"
             class="upload"
             (click)="uploadAll()"
         >
@@ -51,3 +53,12 @@
         </button>
     </mat-card-actions>
 </mat-card>
+
+<button
+    mat-button
+    class="close-btn"
+    (click)="closeOverlay()"
+>
+    <mat-icon>close</mat-icon>
+    Schließen
+</button>
