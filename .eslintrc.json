@@ -1,0 +1,88 @@
+{
+    "root": true,
+    "ignorePatterns": [
+        "**/*"
+    ],
+    "plugins": [
+        "prettier"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts",
+                "*.tsx",
+                "*.js",
+                "*.jsx"
+            ],
+            "rules": {
+            }
+        },
+        {
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "extends": [
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "prettier/prettier": [
+                    "error",
+                    {
+                        "singleQuote": true,
+                        "tabWidth": 4,
+                        "trailingComma": "es5",
+                        "endOfLine": "auto"
+                    }
+                ],
+                "@typescript-eslint/explicit-member-accessibility": [
+                    "error",
+                    {
+                        "accessibility": "explicit",
+                        "overrides": {
+                            "constructors": "no-public"
+                        }
+                    }
+                ],
+                // These are candidates to turn on later
+                "@typescript-eslint/no-explicit-any": 0,
+                "@typescript-eslint/no-inferrable-types": 1,
+                "@typescript-eslint/no-empty-function": 0,
+                "no-unused-vars": 0,
+                "@typescript-eslint/no-unused-vars": 0,
+                "no-prototype-builtins": 0,
+                "no-empty": 0,
+                // These should be fixed and turned on again asap
+                "no-fallthrough": 0,
+                "@typescript-eslint/ban-ts-comment": 0,
+                "@typescript-eslint/no-this-alias": 0,
+                "@angular-eslint/no-output-native": 0,
+                "no-self-assign": 0,
+                "@angular-eslint/no-conflicting-lifecycle": 0,
+                "@typescript-eslint/no-empty-interface": 0,
+                "@angular-eslint/no-empty-lifecycle-method": 0,
+                "no-extra-boolean-cast": 0,
+                "@typescript-eslint/no-var-requires": 0,
+                "any non-nullish value": 0,
+                "@typescript-eslint/ban-types": [
+                    "error",
+                    {
+                        "types": {
+                            "object": false,
+                            "Object": false,
+                            "{}": false
+                        },
+                        "extendDefaults": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "*.js",
+                "*.jsx"
+            ],
+            "rules": { }
+        }
+    ]
+}
