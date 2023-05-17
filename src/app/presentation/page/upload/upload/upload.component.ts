@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, HostListener} from '@angular/core';
 import {CommonModule, Location} from "@angular/common";
 import {DialogModule} from "@angular/cdk/dialog";
 import {HttpClientModule} from "@angular/common/http";
@@ -7,7 +7,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {map, Observable, Subject} from "rxjs";
 import {UploadApiService} from "../../../../business-domain/upload/upload-api.service";
 import {MatCardModule} from "@angular/material/card";
-import {Navigation} from "@angular/router";
 
 interface UploadPreview {
     file: File;
@@ -41,6 +40,9 @@ export class UploadComponent {
         ),
     );
 
+    @HostBinding('class.fileover')
+    public dragOver: boolean = false;
+
     constructor(
         private readonly uploadApiService: UploadApiService,
         private readonly location: Location,
@@ -48,8 +50,11 @@ export class UploadComponent {
     }
 
     public onFileSelected({event}: { event: any }) {
-        // @ts-ignore
-        Array.from(event.target.files).forEach((file: File | null) => {
+        this.addFiles(Array.from(event.target.files))
+    }
+
+    private addFiles(files: File[]): void {
+        files.forEach((file: File | null) => {
             if (file) {
                 // @ts-ignore
                 this.files.push(file);
@@ -69,5 +74,32 @@ export class UploadComponent {
     public removeFile(index: number): void {
         this.files.splice(index, 1);
         this.files$.next(this.files);
+    }
+
+    @HostListener('dragover', ['$event'])
+    public dragEnter(event: DragEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.dragOver = true;
+    }
+
+    @HostListener('dragleave', ['$event'])
+    public dragLeave(event: DragEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.dragOver = false;
+    }
+
+    @HostListener('drop', ['$event'])
+    public dragDrop(event: DragEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.dragOver = false;
+
+        const files = event.dataTransfer?.files ?? [];
+        console.log(files);
+        if (files?.length > 0) {
+            this.addFiles(Array.from(files));
+        }
     }
 }

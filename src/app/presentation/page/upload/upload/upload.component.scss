@@ -18,6 +18,12 @@ mat-card-content {
     align-content: center;
 }
 
+:host.fileover {
+    mat-card-content {
+        outline: 1px dashed red;
+    }
+}
+
 .file-input {
     display: none;
 }
