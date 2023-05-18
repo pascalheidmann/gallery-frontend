@@ -1,15 +1,9 @@
 <div *ngIf="uploadApiService.uploads.length > 0" class="gallery uploads">
-    <div *ngFor="let upload of uploadApiService.uploads$ | async; let index = index" class="preview">
+    <div *ngFor="let upload of uploadApiService.uploads; let index = index" class="preview">
         <img [src]="upload.preview.previewImage" *ngIf="upload.preview.isImage"/>
         <video *ngIf="upload.preview.isVideo" controls>
             <source [src]="upload.preview.previewImage" [type]="upload.preview.file.type">
         </video>
-        <mat-progress-bar
-            *ngIf="upload.upload$ | async as upload"
-            [mode]="upload.state == 'PENDING' ? 'buffer' : 'determinate'"
-            [value]="upload.progress"
-        >
-        </mat-progress-bar>
         <p>{{ upload.preview.file.name }}</p>
     </div>
     <hr>

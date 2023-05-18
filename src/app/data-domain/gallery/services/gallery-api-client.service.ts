@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import {Uuid} from "../../../infrastructure/uid/uuid";
 import {map, Observable, tap} from "rxjs";
 import {Document} from "../models/gallery";
@@ -14,7 +14,7 @@ interface CategoryListResponse {
 export class GalleryApiClientService {
 
     constructor(
-        private readonly httpClient: HttpClient
+        private readonly httpClient: HttpClient,
     ) {
     }
 
