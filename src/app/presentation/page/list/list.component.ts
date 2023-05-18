@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UploadApiService } from '../../../business-domain/upload/upload-api.service';
 import {UserDataService} from "../../../business-domain/user/user-data.service";
 import {GalleryDataService} from "../../../business-domain/gallery/gallery-data.service";
@@ -23,6 +24,7 @@ import {Uuid} from "../../../infrastructure/uid/uuid";
         RouterLink,
         MatIconModule,
         MatButtonModule,
+        MatProgressBarModule,
     ]
 })
 export class ListComponent {
