@@ -12,13 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { map, Observable, Subject } from 'rxjs';
 import { albumId } from '../../../../business-domain/album-id';
 import { UploadApiService } from '../../../../business-domain/upload/upload-api.service';
-
-interface UploadPreview {
-    file: File;
-    previewImage: string;
-    isImage: boolean;
-    isVideo: boolean;
-}
+import { UploadPreview } from '../../../../data-domain/upload/models/uploadPreview';
 
 @Component({
     selector: 'app-upload',

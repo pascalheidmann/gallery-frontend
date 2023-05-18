@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
+import { UploadApiService } from '../../../business-domain/upload/upload-api.service';
 import {UserDataService} from "../../../business-domain/user/user-data.service";
 import {GalleryDataService} from "../../../business-domain/gallery/gallery-data.service";
 import {CdkVirtualForOf} from "@angular/cdk/scrolling";
@@ -28,6 +29,7 @@ export class ListComponent {
     constructor(
         public readonly userDataServiceService: UserDataService,
         public readonly galleryDataService: GalleryDataService,
+        public readonly uploadApiService: UploadApiService,
         public readonly router: Router,
     ) {
     }
