@@ -12,7 +12,6 @@ export class GalleryDataService {
 
     constructor(
         private readonly apiClient: GalleryApiClientService,
-                private readonly changeDetectorRef: ChangeDetectorRef,
         ) {
     }
 
@@ -23,7 +22,6 @@ export class GalleryDataService {
     public readonly documents$: Observable<Document[]> = this.refresh$.pipe(
         switchMap(_ => timer(500, 60000).pipe(
                 concatMap(_ => this.apiClient.fetchDocuments$(albumId)),
-                tap(() => this.changeDetectorRef.markForCheck())
             )
         )
     );

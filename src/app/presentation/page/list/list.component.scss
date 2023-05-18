@@ -39,13 +39,13 @@ a {
     z-index: 1;
 }
 
-source, img {
+source, img, video {
     aspect-ratio: 1/1;
     width: 100%;
     object-fit: cover;
 
     vertical-align: bottom;
-    max-width: 100%;
+    max-width: min(100%, 100vw);
     padding: 0;
     margin: 0;
 

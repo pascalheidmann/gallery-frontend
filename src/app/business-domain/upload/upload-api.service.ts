@@ -25,8 +25,10 @@ export class UploadApiService {
             `/api/album/${albumId}/upload`,
             formData
         );
-        request.subscribe(() => {
-            this.galleryDataService.refresh();
+        request.subscribe({
+            complete: () => {
+                this.galleryDataService.refresh();
+            }
         });
         this.uploads.push({
             preview: {
@@ -34,7 +36,8 @@ export class UploadApiService {
                 previewImage: URL.createObjectURL(file),
                 isImage: file.type.startsWith('image'),
                 isVideo: file.type.startsWith('video'),
-            }, request: request
+            },
+            request: request
         });
     }
 }
