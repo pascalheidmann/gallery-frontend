@@ -1,7 +1,17 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
-import {BehaviorSubject, concatMap, Observable, Subject, switchMap, tap, timer} from "rxjs";
-import {Document} from "../../data-domain/gallery/models/gallery";
-import {GalleryApiClientService} from "../../data-domain/gallery/services/gallery-api-client.service";
+import { Injectable } from '@angular/core';
+import {
+    BehaviorSubject,
+    concatMap, concatWith,
+    map,
+    Observable,
+    of, startWith,
+    switchMap, tap,
+    timer,
+    withLatestFrom
+} from 'rxjs';
+import { Document } from '../../data-domain/gallery/models/gallery';
+import { GalleryApiClientService } from '../../data-domain/gallery/services/gallery-api-client.service';
+import { Uuid } from '../../infrastructure/uid/uuid';
 import { albumId } from '../album-id';
 
 @Injectable({
@@ -12,7 +22,7 @@ export class GalleryDataService {
 
     constructor(
         private readonly apiClient: GalleryApiClientService,
-        ) {
+    ) {
     }
 
     public refresh(): void {
@@ -25,4 +35,12 @@ export class GalleryDataService {
             )
         )
     );
+
+    public document$(documentId: Uuid): Observable<Document | undefined> {
+        return this.documents$.pipe(
+            startWith([]),
+            map((documents: Document[]) => documents?.find(
+                document => document.id === documentId)),
+        );
+    }
 }

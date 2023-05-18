@@ -1,1 +1,19 @@
-<p>detail works! {{data.documentId$ | async}}</p>
+<mat-card *ngIf="document$ | async as document">
+    <mat-card-content>
+        <div>
+            <img [src]="document.path" *ngIf="document.type === 'photo'">
+            <video *ngIf="document.type === 'video'">
+                <source [srcset]="document.path" [type]="document.type" />
+            </video>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button
+            mat-raised-button
+            (click)="download(document)"
+            >
+            <mat-icon>download</mat-icon>
+            herunterladen
+        </button>
+    </mat-card-actions>
+</mat-card>

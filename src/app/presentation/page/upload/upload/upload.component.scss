@@ -20,10 +20,12 @@ mat-card {
     align-content: center;
     grid-template-rows: minmax(0, 1fr) 4rem;
 }
+
 mat-card-actions {
     gap: 1rem;
     justify-content: center;
 }
+
 mat-card-content {
     display: grid;
     justify-content: center;

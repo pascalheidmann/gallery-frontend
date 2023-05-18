@@ -32,8 +32,8 @@ export class DetailOutletComponent implements OnInit {
         let dialogRef: DialogRef<unknown, DetailComponent> = this.dialog.open(DetailComponent, {
             width: '100vh',
             height: '100vh',
-            maxWidth: '100vh',
-            maxHeight: '100vh',
+            maxWidth: '1200px',
+            maxHeight: '1200px',
             hasBackdrop: true,
             closeOnDestroy: true,
             data: {
