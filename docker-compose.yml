@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   build:
-    image: 16-slim
+    image: node:18-slim
     volumes:
       - .:/app
     working_dir: /app
