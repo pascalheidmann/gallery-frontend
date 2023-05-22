@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  build:
+    image: 16-slim
+    volumes:
+      - .:/app
+    working_dir: /app
+    command:
+      - npm install
+      - npm build

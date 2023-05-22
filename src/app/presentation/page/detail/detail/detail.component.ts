@@ -38,8 +38,8 @@ export class DetailComponent {
 
     public async download(element: Document): Promise<void> {
         const image = await fetch(element.path);
-        const imageBlog = await image.blob();
-        const imageURL = URL.createObjectURL(imageBlog);
+        const imageBlob = await image.blob();
+        const imageURL = URL.createObjectURL(imageBlob);
 
         const link = document.createElement('a');
         link.href = imageURL;
