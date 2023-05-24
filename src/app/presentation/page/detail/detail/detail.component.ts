@@ -1,4 +1,4 @@
-import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,7 @@ export class DetailComponent {
     constructor(
         @Inject(DIALOG_DATA) public data: { documentId$: Observable<string> },
         public readonly galleryDataService: GalleryDataService,
+        public readonly dialogRef: DialogRef<DetailComponent>,
     ) {
     }
 
@@ -47,5 +48,9 @@ export class DetailComponent {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+
+    public closeOverlay() {
+        this.dialogRef.close();
     }
 }

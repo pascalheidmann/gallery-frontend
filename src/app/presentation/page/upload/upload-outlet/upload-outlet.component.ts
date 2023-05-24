@@ -24,8 +24,8 @@ export class UploadOutletComponent implements OnInit {
 
     public ngOnInit(): void {
         let dialogRef: DialogRef<unknown, UploadComponent> = this.dialog.open(UploadComponent, {
-            width: '100vh',
-            height: '100vh',
+            width: '95dvw',
+            height: '95dvh',
             maxWidth: '800px',
             maxHeight: '800px',
             hasBackdrop: true,

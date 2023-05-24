@@ -51,7 +51,6 @@ export class UploadComponent {
     constructor(
         public readonly dialogRef: DialogRef<UploadComponent>,
         private readonly uploadApiService: UploadApiService,
-        private readonly location: Location,
     ) {
     }
 
