@@ -35,6 +35,18 @@
     }
 }
 
+.uploads {
+    display: flex;
+    max-width: 100%;
+    overflow-x: auto;
+    position: sticky;
+    max-height: 20vw;
+
+    div {
+        max-width: 20vw;
+    }
+}
+
 a {
     z-index: 1;
 }

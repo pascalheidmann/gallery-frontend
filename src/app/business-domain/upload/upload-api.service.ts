@@ -2,9 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     BehaviorSubject,
+    catchError,
+    EMPTY,
+    filter,
     map,
     Observable,
-    skipWhile,
+    of,
+    retry,
     Subject,
     timer,
     withLatestFrom
@@ -40,10 +44,10 @@ export class UploadApiService {
         distinctUntilChanged(),
         map((): UploadQueueItem | undefined => this.uploads.length > 0 ? this.uploads.shift() : undefined),
         // @ts-ignore
-        skipWhile((item: UploadQueueItem | undefined): boolean => item === undefined),
+        filter((item: UploadQueueItem | undefined): boolean => item !== undefined),
         map((item: UploadQueueItem) => item.request.subscribe({
             complete: () => {
-                this.uploads$.next(this.uploads);
+                this.uploads$.next(this.uploads ?? []);
                 this.galleryDataService.refresh();
                 this.uploadFinished$.next(1);
             }
@@ -58,7 +62,8 @@ export class UploadApiService {
         const request = this.httpClient.post(
             `/api/album/${albumId}/upload`,
             formData
-        );
+        ).pipe(retry(3), catchError(() => of(EMPTY)));
+
         const nextUpload = {
             preview: {
                 file: file,
