@@ -1,26 +1,17 @@
-<div *ngIf="uploadApiService.uploads.length > 0" class="gallery uploads">
-    <div *ngFor="let upload of uploadApiService.uploads; let index = index" class="preview">
-        <img [src]="upload.preview.previewImage" *ngIf="upload.preview.isImage"/>
-        <video *ngIf="upload.preview.isVideo" controls>
-            <source [src]="upload.preview.previewImage" [type]="upload.preview.file.type">
-        </video>
-        <p>{{ upload.preview.file.name }}</p>
-    </div>
-    <hr>
-</div>
+
 <div *ngIf="userDataServiceService.isLoggedIn$ | async" class="gallery">
     <ng-container *ngIf="(galleryDataService.documents$ | async) as documents; else loading">
-        <a *ngFor="let image of documents; trackBy: getDocumentId"
-           [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', image.id]}}]">
+        <a *ngFor="let document of documents; trackBy: getDocumentId"
+           [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', document.id]}}]">
             <picture>
                 <source
-                    *ngFor="let preview of image.previews"
+                    *ngFor="let preview of document.previews"
                     media="(min-width: 10px)"
                     [srcset]="preview.path"
                     [type]="preview.mime"
                     loading="lazy"
                 />
-                <img [src]="image.previews[0]?.path ?? '/api/document-preview/' + image.id" loading="lazy"/>
+                <img [src]="document.previews[0]?.path || '/assets/images/placeholder-image.png'" loading="lazy"/>
             </picture>
         </a>
     </ng-container>
@@ -28,6 +19,18 @@
         <mat-icon>loading</mat-icon>
     </ng-template>
 </div>
+<ng-container *ngIf="uploadApiService.uploads$ | async as uploads">
+    <div *ngIf="uploads.length > 0" class="gallery uploads">
+        <div *ngFor="let upload of uploads; let index = index" class="preview">
+            <img [src]="upload.preview.previewImage" *ngIf="upload.preview.isImage"/>
+            <video *ngIf="upload.preview.isVideo" controls>
+                <source [src]="upload.preview.previewImage" [type]="upload.preview.file.type">
+            </video>
+            <p>{{ upload.preview.file.name }}</p>
+        </div>
+        <hr>
+    </div>
+</ng-container>
 
 <div class="bottom-bar">
     <!--
@@ -35,7 +38,7 @@
         <mat-icon>filter_list</mat-icon>
     </button>
     -->
-    <button mat-fab extended (click)="showUpload()">
+    <button mat-fab extended (click)="showUpload()" color="primary">
         <mat-icon>upload</mat-icon>
         Upload
     </button>
