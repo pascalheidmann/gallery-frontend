@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import {
     BehaviorSubject,
-    concatMap, concatWith,
+    concatMap,
     map,
     Observable,
-    of, startWith,
-    switchMap, tap,
-    timer,
-    withLatestFrom
+    shareReplay,
+    startWith,
+    switchMap,
+    timer
 } from 'rxjs';
-import { Document } from '../../data-domain/gallery/models/gallery';
+import {
+    Document,
+    DocumentDetails
+} from '../../data-domain/gallery/models/gallery';
 import { GalleryApiClientService } from '../../data-domain/gallery/services/gallery-api-client.service';
 import { Uuid } from '../../infrastructure/uid/uuid';
 import { albumId } from '../album-id';
@@ -32,15 +35,12 @@ export class GalleryDataService {
     public readonly documents$: Observable<Document[]> = this.refresh$.pipe(
         switchMap(_ => timer(500, 60000).pipe(
                 concatMap(_ => this.apiClient.fetchDocuments$(albumId)),
+                shareReplay(1, 30)
             )
         )
     );
 
-    public document$(documentId: Uuid): Observable<Document | undefined> {
-        return this.documents$.pipe(
-            startWith([]),
-            map((documents: Document[]) => documents?.find(
-                document => document.id === documentId)),
-        );
+    public document$(documentId: Uuid): Observable<DocumentDetails> {
+        return this.apiClient.fetchDocumentDetails$(documentId);
     }
 }

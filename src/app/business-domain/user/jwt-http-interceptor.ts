@@ -18,6 +18,6 @@ export class JwtHttpInterceptor implements HttpInterceptor {
             return next.handle(httpRequest);
         }
 
-        return next.handle(httpRequest.clone({ setHeaders: { JWT_AUTH } }));
+        return next.handle(httpRequest.clone({ setHeaders: { 'X-JWT-AUTH': JWT_AUTH } }));
     }
 }

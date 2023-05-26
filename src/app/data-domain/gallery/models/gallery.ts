@@ -16,3 +16,18 @@ export interface Document {
     path: string;
     previews: DocumentPreview[];
 }
+
+export interface DocumentDetails {
+    id: Uuid;
+    resource: string;
+    type: string;
+    created: Date;
+    updated: Date | null;
+    path: string;
+    categories: [];
+    previews: DocumentPreview[];
+    user: {
+        id: Uuid;
+        name: string;
+    }
+}
