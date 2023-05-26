@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +19,8 @@ import { UserDataService } from '../../../business-domain/user/user-data.service
     imports: [
         MatInputModule,
         MatButtonModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        ReactiveFormsModule
     ],
     standalone: true
 })
@@ -24,20 +30,18 @@ export class RegisterFormComponent {
         private readonly fb: FormBuilder,
     ) {}
 
-
     public formGroup: FormGroup = this.fb.group({
         name: ['', Validators.required],
-        email: ['', Validators.email],
-    }, {updateOn: "blur"});
-
+        email: ['', Validators.required, Validators.email],
+    });
 
     public register(event: SubmitEvent): void {
         event.preventDefault();
         event.stopPropagation();
-        if (!this.formGroup.valid) {
-            //return;
+        if (!this.formGroup.valid && this.formGroup.touched) {
+            return;
         }
 
-        this.userDataService.register(this.formGroup.get('email')?.value, this.formGroup.get('name')?.value);
+        this.userDataService.register(this.formGroup.value);
     }
 }

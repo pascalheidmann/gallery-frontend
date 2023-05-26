@@ -21,10 +21,10 @@ export class UserDataService {
     public isLoggedIn$ = new BehaviorSubject(false);
     public jwtToken = '';
 
-    public register(email: string, name: string): Subscription {
+    public register(payload: {email: string, name: string}): Subscription {
         return this.httpClient.post<{ token: string }>(
             '/api/register',
-            { email, name }
+            payload
         ).pipe(retry(1)).subscribe((response: { token: string }) => {
                 this.restore(response.token);
             }
