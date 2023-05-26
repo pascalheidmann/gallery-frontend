@@ -1,0 +1,18 @@
+<form (submit)="register($event)">
+    <h3>Bitte gib deinen Namen und eine Email an:</h3>
+
+    <mat-form-field class="full-width">
+        <mat-label>Dein Name</mat-label>
+        <input type="text" matInput placeholder="Name" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Email für spätere Logins</mat-label>
+        <input type="email" matInput placeholder="Email" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+        Abschicken
+    </button>
+</form>
+
+<p>Dein Name wird bei deinen hochgeladenen Bildern angezeigt.</p>
+<p>Anhand deiner Email-Adresse kannst du auch noch später <br> und anderem Geräten deine Bilder und Videos verwalten.</p>

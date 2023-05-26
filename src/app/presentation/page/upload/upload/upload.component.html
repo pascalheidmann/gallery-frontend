@@ -1,57 +1,65 @@
 <mat-card>
-    <mat-card-content>
-        <input
-            type="file"
-            accept="image/*, video/*"
-            class="file-input"
-            (change)="onFileSelected({event : $event})"
-            multiple
-            #fileUpload
-        >
-        <ng-container *ngIf="previews$ | async as previews; else noFilesSelected">
-            <div class="previews" *ngIf="previews.length > 0; else noFilesSelected">
-                <div *ngFor="let preview of previews; let index = index" class="preview">
-                    <button
-                        mat-mini-fab
-                        color="accent"
-                        (click)="removeFile(index)"
-                    >
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                    <img [src]="preview.previewImage" *ngIf="preview.isImage"/>
-                    <video *ngIf="preview.isVideo" controls>
-                        <source [src]="preview.previewImage" [type]="preview.file.type">
-                    </video>
-                    <p>{{ preview.file.name }}</p>
+    <ng-container *ngIf="userDataService.isLoggedIn$ | async; else register">
+        <mat-card-content>
+            <input
+                type="file"
+                accept="image/*, video/*"
+                class="file-input"
+                (change)="onFileSelected({event : $event})"
+                multiple
+                #fileUpload
+            >
+            <ng-container *ngIf="previews$ | async as previews; else noFilesSelected">
+                <div class="previews" *ngIf="previews.length > 0; else noFilesSelected">
+                    <div *ngFor="let preview of previews; let index = index" class="preview">
+                        <button
+                            mat-mini-fab
+                            color="accent"
+                            (click)="removeFile(index)"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <img [src]="preview.previewImage" *ngIf="preview.isImage"/>
+                        <video *ngIf="preview.isVideo" controls>
+                            <source [src]="preview.previewImage" [type]="preview.file.type">
+                        </video>
+                        <p>{{ preview.file.name }}</p>
+                    </div>
                 </div>
-            </div>
-        </ng-container>
-        <ng-template #noFilesSelected>
-            Fotos und Videos für Upload jetzt auswählen
-        </ng-template>
-    </mat-card-content>
+            </ng-container>
+            <ng-template #noFilesSelected>
+                Fotos und Videos für Upload jetzt auswählen
+            </ng-template>
+        </mat-card-content>
 
-    <mat-card-actions>
-        <button
-            mat-raised-button
-            color="primary"
-            class="upload-select-btn"
-            (click)="fileUpload.click()"
-        >
-            <mat-icon>attach_file</mat-icon>
-            Dateien auswählen
-        </button>
-        <button
-            mat-raised-button
-            [color]="(files$ | async)?.length ? 'accent' : 'primary'"
-            [disabled]="!((files$ | async)?.length)"
-            class="upload"
-            (click)="uploadAll()"
-        >
-            <mat-icon>rocket</mat-icon>
-            Upload
-        </button>
-    </mat-card-actions>
+        <mat-card-actions>
+            <button
+                mat-raised-button
+                color="primary"
+                class="upload-select-btn"
+                (click)="fileUpload.click()"
+            >
+                <mat-icon>attach_file</mat-icon>
+                Dateien auswählen
+            </button>
+            <button
+                mat-raised-button
+                [color]="(files$ | async)?.length ? 'accent' : 'primary'"
+                [disabled]="!((files$ | async)?.length)"
+                class="upload"
+                (click)="uploadAll()"
+            >
+                <mat-icon>rocket</mat-icon>
+                Upload
+            </button>
+        </mat-card-actions>
+    </ng-container>
+
+    <ng-template #register>
+        <mat-card-content>
+            <app-register-form></app-register-form>
+        </mat-card-content>
+    </ng-template>
 </mat-card>
 
 <button

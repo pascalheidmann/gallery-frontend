@@ -10,26 +10,24 @@
         <hr>
     </div>
 </ng-container>
-<div *ngIf="userDataServiceService.isLoggedIn$ | async" class="gallery">
-    <ng-container *ngIf="(galleryDataService.documents$ | async) as documents; else loading">
-        <a *ngFor="let document of documents; trackBy: getDocumentId"
-           [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', document.id]}}]">
-            <picture>
-                <source
-                    *ngFor="let preview of document.previews"
-                    media="(min-width: 10px)"
-                    [srcset]="preview.path"
-                    [type]="preview.mime"
-                    loading="lazy"
-                />
-                <img [src]="document.previews[0].path || '/assets/images/placeholder-image.png'" loading="lazy"/>
-            </picture>
-        </a>
-    </ng-container>
-    <ng-template #loading>
-        <mat-icon>loading</mat-icon>
-    </ng-template>
+<div *ngIf="(galleryDataService.documents$ | async) as documents; else loading" class="gallery">
+    <a *ngFor="let document of documents; trackBy: getDocumentId"
+       [routerLink]="['', {relativeUrl: true, outlets: {overlay: ['details', document.id]}}]">
+        <picture>
+            <source
+                *ngFor="let preview of document.previews"
+                media="(min-width: 10px)"
+                [srcset]="preview.path"
+                [type]="preview.mime"
+                loading="lazy"
+            />
+            <img [src]="document.previews[0].path || '/assets/images/placeholder-image.png'" loading="lazy"/>
+        </picture>
+    </a>
 </div>
+<ng-template #loading>
+    <mat-icon>loading</mat-icon>
+</ng-template>
 
 <div class="bottom-bar">
     <!--

@@ -1,6 +1,6 @@
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { isDevMode, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { JwtHttpInterceptor } from './business-domain/user/jwt-http-interceptor';
 
 @NgModule({
     declarations: [
@@ -30,9 +31,16 @@ import { AppComponent } from './app.component';
         }),
         CdkConnectedOverlay,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
     ],
-    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER],
+    providers: [
+        MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtHttpInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

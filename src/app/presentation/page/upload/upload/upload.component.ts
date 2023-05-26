@@ -9,10 +9,14 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { map, Observable, Subject } from 'rxjs';
+import { AppModule } from '../../../../app.module';
 import { albumId } from '../../../../business-domain/album-id';
 import { UploadApiService } from '../../../../business-domain/upload/upload-api.service';
+import { UserDataService } from '../../../../business-domain/user/user-data.service';
 import { UploadPreview } from '../../../../data-domain/upload/models/uploadPreview';
+import { RegisterFormComponent } from '../../../ui-shared/register-form/register-form.component';
 
 @Component({
     selector: 'app-upload',
@@ -25,7 +29,9 @@ import { UploadPreview } from '../../../../data-domain/upload/models/uploadPrevi
         DialogModule,
         MatIconModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatInputModule,
+        RegisterFormComponent,
     ]
 })
 export class UploadComponent {
@@ -49,6 +55,7 @@ export class UploadComponent {
     public dragOver: boolean = false;
 
     constructor(
+        public readonly userDataService: UserDataService,
         public readonly dialogRef: DialogRef<UploadComponent>,
         private readonly uploadApiService: UploadApiService,
     ) {
