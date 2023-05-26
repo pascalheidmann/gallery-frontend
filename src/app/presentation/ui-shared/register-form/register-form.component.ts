@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
     FormBuilder,
@@ -8,7 +9,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserDataService } from '../../../business-domain/user/user-data.service';
 
 @Component({
@@ -17,6 +17,7 @@ import { UserDataService } from '../../../business-domain/user/user-data.service
     styleUrls: ['./register-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
+        CommonModule,
         MatInputModule,
         MatButtonModule,
         MatFormFieldModule,
@@ -32,12 +33,10 @@ export class RegisterFormComponent {
 
     public formGroup: FormGroup = this.fb.group({
         name: ['', Validators.required],
-        email: ['', Validators.required, Validators.email],
-    });
+        email: ['', [Validators.required, Validators.email]],
+    }, { updateOn: 'blur' });
 
     public register(event: SubmitEvent): void {
-        event.preventDefault();
-        event.stopPropagation();
         if (!this.formGroup.valid && this.formGroup.touched) {
             return;
         }

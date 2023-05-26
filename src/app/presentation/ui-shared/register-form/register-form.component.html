@@ -4,16 +4,19 @@
     <mat-form-field class="full-width">
         <mat-label>Dein Name</mat-label>
         <input type="text" matInput placeholder="Name" [formControlName]="'name'"/>
-        <div *ngIf="formGroup.get('name')?.errors?.['required']">
+        <mat-error *ngIf="formGroup.get('name')?.touched && formGroup.get('name')?.errors?.['required']">
             Wird benötigt
-        </div>
+        </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
         <mat-label>Email für spätere Logins</mat-label>
         <input type="email" matInput placeholder="Email" [formControlName]="'email'"/>
-        <div *ngIf="formGroup.get('email')?.errors?.['required']">
+        <mat-error *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.errors?.['required']">
             Wird benötigt
-        </div>
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.errors?.['email']">
+            Bitte gib eine gültige Email ein
+        </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">
         Abschicken
