@@ -21,6 +21,7 @@ export interface DocumentDetails {
     id: Uuid;
     resource: string;
     type: string;
+    mime: string;
     created: Date;
     updated: Date | null;
     path: string;
