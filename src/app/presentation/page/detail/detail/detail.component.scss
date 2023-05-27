@@ -21,8 +21,10 @@ mat-card {
 }
 
 mat-card-content {
-    align-content: center;
     display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-rows: minmax(0, 1fr) 4rem;
 }
 
 img, video, source {
