@@ -21,7 +21,10 @@
                 [type]="preview.mime"
                 loading="lazy"
             />
-            <img [ngSrc]="document.previews[0]?.path || '/assets/images/placeholder-image.png'" loading="lazy"/>
+            <img *ngIf="document.previews.length > 0; else placeholder" [srcset]="document.previews[0].path" loading="lazy"/>
+            <ng-template #placeholder>
+                <img src="/assets/images/placeholder-image.png" />
+            </ng-template>
         </picture>
     </a>
 </div>
