@@ -2,7 +2,7 @@
     <mat-card-content>
         <div>
             <img [src]="document.path" *ngIf="document.type === 'photo'">
-            <video *ngIf="document.type === 'video'">
+            <video *ngIf="document.type === 'video'" controls>
                 <source [srcset]="document.path" [type]="document.type" />
             </video>
         </div>
