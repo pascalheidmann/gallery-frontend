@@ -21,7 +21,7 @@
                 [type]="preview.mime"
                 loading="lazy"
             />
-            <img [src]="document.previews[0].path || '/assets/images/placeholder-image.png'" loading="lazy"/>
+            <img [ngSrc]="document.previews[0]?.path || '/assets/images/placeholder-image.png'" loading="lazy"/>
         </picture>
     </a>
 </div>
