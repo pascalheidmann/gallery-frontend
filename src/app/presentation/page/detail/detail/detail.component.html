@@ -3,7 +3,7 @@
         <div>
             <img [src]="document.path" *ngIf="document.type === 'photo'">
             <video *ngIf="document.type === 'video'" controls>
-                <source [srcset]="document.path" [type]="document.mime" />
+                <source [src]="document.path" [type]="document.mime" />
             </video>
         </div>
         <div>Von {{document.user.name}}</div>
