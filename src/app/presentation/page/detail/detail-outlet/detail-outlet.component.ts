@@ -30,8 +30,8 @@ export class DetailOutletComponent implements OnInit {
 
     public ngOnInit(): void {
         let dialogRef: DialogRef<unknown, DetailComponent> = this.dialog.open(DetailComponent, {
-            width: '100vh',
-            height: '100vh',
+            width: '95dvw',
+            height: '95dvh',
             maxWidth: '1200px',
             maxHeight: '1200px',
             hasBackdrop: true,
