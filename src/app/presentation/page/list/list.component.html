@@ -21,15 +21,20 @@
                 [type]="preview.mime"
                 loading="lazy"
             />
-            <img *ngIf="document.previews.length > 0; else placeholder" [srcset]="document.previews[0].path" loading="lazy"/>
+            <img *ngIf="document.previews.length > 0; else placeholder"
+                 [srcset]="document.previews[0].path"
+                 loading="lazy"/>
             <ng-template #placeholder>
-                <img src="/assets/images/placeholder-image.png" />
+                <img src="/assets/images/placeholder-image.png"/>
             </ng-template>
         </picture>
     </a>
+    <p *ngIf="documents.length === 0">Noch keine Bilder</p>
 </div>
 <ng-template #loading>
-    <mat-icon>loading</mat-icon>
+    <div class="loading">
+        <mat-spinner></mat-spinner>
+    </div>
 </ng-template>
 
 <div class="bottom-bar">

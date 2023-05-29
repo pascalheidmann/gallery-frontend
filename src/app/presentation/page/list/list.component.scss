@@ -35,6 +35,13 @@
     }
 }
 
+.loading {
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
 .uploads {
     display: flex;
     max-width: 100%;
