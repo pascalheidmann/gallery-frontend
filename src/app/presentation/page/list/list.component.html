@@ -25,7 +25,8 @@
                  [srcset]="document.previews[0].path"
                  loading="lazy"/>
             <ng-template #placeholder>
-                <img src="/assets/images/placeholder-image.png"/>
+                <img src="/assets/images/placeholder-image.png" *ngIf="!document.type.startsWith('video')"/>
+                <img src="/assets/images/placeholder-video.png" *ngIf="document.type.startsWith('video')"/>
             </ng-template>
         </picture>
     </a>
