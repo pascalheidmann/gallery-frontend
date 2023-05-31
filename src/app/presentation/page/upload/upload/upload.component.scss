@@ -58,6 +58,7 @@ mat-card-content {
     display: grid;
     gap: .25rem;
     position: relative;
+    animation: fadeIn ease-in-out 1s;
 
     button {
         position: absolute;
