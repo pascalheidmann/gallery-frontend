@@ -36,6 +36,7 @@ mat-card-content {
 img, video, source {
     max-width: min(100%, 100vw);
     max-height: min(100%, 100vh);
+    animation: fadeIn 5s;
 }
 
 mat-card-actions {
