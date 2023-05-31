@@ -19,14 +19,14 @@ export class GalleryApiClientService {
     }
 
     public fetchDocuments$(categoryId: Uuid): Observable<Document[]> {
-        return this.httpClient.get<CategoryListResponse>(`/api/album/${categoryId}/`)
+        return this.httpClient.get<CategoryListResponse>(`/api/album/${categoryId}`)
             .pipe(
                 map((response: CategoryListResponse) => response.documents)
             );
     }
 
     public fetchDocumentDetails$(documentId: Uuid): Observable<DocumentDetails> {
-        return this.httpClient.get<DocumentDetails>(`/api/document/${documentId}/`)
+        return this.httpClient.get<DocumentDetails>(`/api/document/${documentId}`)
             .pipe(
                 shareReplay(1, 600)
             );
